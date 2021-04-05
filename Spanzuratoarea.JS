@@ -23,10 +23,10 @@ function StartGame() {
         document.getElementById("wordletter").innerHTML = '';
         let checkLetter = document.getElementById("userLetter").value.toUpperCase();
         document.getElementById("userLetter").value = '';
-        for(let i = 0; i < index.length; ++i) {
-            if(checkLetter == index[livesGame]) {
+         for(let i = 0; i < index.length; ++i) {
+            if(checkLetter == index[i]) {
                 if(livesGame <= gameWords.length) { 
-                    leaterPosition[livesGame]++;
+                    leaterPosition[i]++;
                 }
             }
         } 
