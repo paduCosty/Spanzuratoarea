@@ -1,36 +1,40 @@
-let arrayString = ["AMADEUS", "ISTORICAL", "SOCIAL", "EMACNIPAT", "SOBLOAN", "DISTRUFERE", "MODERNISM", "PLICTISEALA", "CRUCIADA", "UTERE"];/// here I have to add more words
-let arrayWord = [], leatersArray = [], x = 0, leater, leaterPosition = [], livesGame = 0;
-function fucntionStartGame() {
-    let randomNumber = Math.floor(Math.random() * 10); // If I add more words then here I have to increase the number for random
-    let index = arrayString[randomNumber], half = index.length / 2;
+let gameWords = ["AMADEUS", "ISTORICAL", "SOCIAL", "EMACNIPAT", "SOBOLAN", "DISTRUGERE", "MODERNISM", "PLICTISEALA", "CRUCIADA", "PUTERE"];/// here I have to add more words
+let arrayWord = [], leatersArray = [], x = 0, leaterPosition = new Array(100), livesGame = 0, sameLetter = 0;
+function StartGame() {
+    let randomNumber = Math.floor(Math.random() * gameWords.length);
+    for(let i = 0; i < gameWords[randomNumber].length; ++i) {
+        leaterPosition[i] = 0;
+    }
+    let index = gameWords[randomNumber], half = index.length / 2;
     half = Math.floor(half);
     if(x > 0) {
-        document.getElementById("wordLeater").innerHTML = '';
+        document.getElementById("wordletter").innerHTML = '';
     }
     for(let i = 0; i < index.length; ++i) {
         if(i == 0 || i == index.length - 1 || i == half) {
-            document.getElementById("wordLeater").innerHTML += index[i] + " ";
+            document.getElementById("wordletter").innerHTML += index[i] + " ";
         } else {
-            document.getElementById("wordLeater").innerHTML += "... ";
+            document.getElementById("wordletter").innerHTML += "... ";
         }
     }
     ++x;
-    document.getElementById("inputLeater").onclick = function changeContent() {
+    document.getElementById("inputLetter").onclick = function changeContent() {
         let winnerStop = index.length;
-        document.getElementById("wordLeater").innerHTML = '';
-        leater = document.getElementById("leater").value;
-        document.getElementById("leater").value = '';
+        document.getElementById("wordletter").innerHTML = '';
+        let checkLetter = document.getElementById("userLetter").value.toUpperCase();
+        document.getElementById("userLetter").value = '';
         for(let i = 0; i < index.length; ++i) {
-            if(leater == index[i]) {
-                if(livesGame <= 10) { 
-                    leaterPosition[i] = 1;
+            if(checkLetter == index[livesGame]) {
+                if(livesGame <= gameWords.length) { 
+                    leaterPosition[livesGame]++;
                 }
             }
-        }
+        } 
+        console.log(leaterPosition[livesGame]);
         if(livesGame == 10) {
             document.getElementById("finalGame").innerHTML = "Ai pierdut";
         }
-        let n = index.search(leater);
+        let n = index.search(checkLetter);
         if(n == -1) {
             if(livesGame == 0) {
                 document.getElementById("gameBody").innerHTML = "__" + "<br>";
@@ -58,14 +62,14 @@ function fucntionStartGame() {
             ++livesGame;
         }
         for(let i = 0, j = 0; i < index.length && j <= winnerStop; ++i) {
-            if(i == 0 || i == index.length - 1 || i == half || leaterPosition[i] == 1) {
-                document.getElementById("wordLeater").innerHTML += index[i] + " ";
+            if(i == 0 || i == index.length - 1 || i == half || leaterPosition[i] >= 1) {
+                document.getElementById("wordletter").innerHTML += index[i] + " ";
                 ++j;
                 if(j == winnerStop) {
                     alert("Ai castigat");
                 }
             } else {
-                document.getElementById("wordLeater").innerHTML += "... ";
+                document.getElementById("wordletter").innerHTML += "... ";
             }
         }
     }
